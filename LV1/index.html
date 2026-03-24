@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+	<html lang="hr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Responzivna web stranica o filmovima - tablice, CSS-only grafikon, galerija plakata, grid i flexbox.">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+		<title>Movies</title> <!--promijeniti odgovarajući tekst na stranici
+		ovo je samo predložak-->
+	</head>
+	<body>
+		
+		<header>
+			<h1>Podaci o Filmovima</h1>
+			<nav aria-label="Glavna navigacija">
+				<ul class="nav-menu">
+					<li><a href="index.html">Početna</a></li>
+					<li><a href="grafikon.html">Grafikon</a></li>
+					<li><a href="slike.html">Galerija</a></li>
+				</ul>
+			</nav>
+    	</header>
+
+		<main>
+        <section class="content data-section">
+            <h1>Popis filmova</h1>
+            <div class="data-container">
+                <!-- Tablica filmova -->
+                <table aria-label="Popis filmova">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Naslov</th><th>Godina</th><th>Žanr</th><th>Trajanje</th><th>Država</th><th>Ocjena</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>2</td><td>Bugs Bunny's Third Movie</td><td>1982</td><td>Animacija</td><td>76</td><td>SAD</td><td>7.7</td></tr>
+                        <tr><td>8</td><td>My Little Pony: A New Generation</td><td>2021</td><td>Animacija</td><td>98</td><td>SAD</td><td>6.5</td></tr>
+                        <tr><td>17</td><td>Ride a Wild Pony</td><td>1976</td><td>Romantični</td><td>91</td><td>SAD</td><td>5.7</td></tr>
+                        <tr><td>18</td><td>Diner</td><td>1982</td><td>Komedija</td><td>95</td><td>SAD</td><td>7.0</td></tr>
+                        <tr><td>20</td><td>A che servono questi quattrini?</td><td>1942</td><td>Komedija</td><td>85</td><td>Italija</td><td>5.9</td></tr>
+                    </tbody>
+                </table>
+
+                <!-- Responzivna fotografija u aside (picture + media query) -->
+                <aside class="movie-photo" aria-labelledby="photo-desc">
+					<picture>
+                        <source media="(min-width: 769px)" srcset="https://m.media-amazon.com/images/M/MV5BMGFmM2I5YjYtNTkwNS00NThiLTgzMTgtNWY1MmMzOTVjZWYxXkEyXkFqcGc@._V1_.jpg">
+                        <img src="https://m.media-amazon.com/images/M/MV5BMGFmM2I5YjYtNTkwNS00NThiLTgzMTgtNWY1MmMzOTVjZWYxXkEyXkFqcGc@._V1_.jpg" alt="Filmski plakat klasičnog filma">
+                    </picture>
+                    <h3 id="photo-desc">One Million Yen Girl</h2>
+                </aside>
+            </div>
+        </section>
+
+        <section class="content" aria-labelledby="sekcija-naslov">
+            <h2 id="sekcija-naslov">O filmovima</h2>
+            <p>Dodajte me na letterboxdu @erdtrees :3</p>
+        </section>
+    </main>
+		
+
+		<!--dodati odgovarajuće elemente na temelju danog zadatka: tablice, slike, tekst
+		Nepotrebno obrisati! -->
+		<footer>
+		<p>&copy; 2025. Web Programiranje. Sva prava pridrzana.</p>
+		</footer>
+	</body>
+	</html>

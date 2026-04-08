@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galerija</title>
+
+    <!-- VAŽNO: mora odgovarati točno nazivu foldera -->
     <link rel="stylesheet" href="/styles/style_slike.css">
 </head>
 <body>
@@ -20,6 +22,7 @@
     </header>
 
     <main>
+        <!-- GALERIJA -->
         <section class="galerija">
             <% images.forEach(image => { %>
                 <figure class="galerija_slika">
@@ -31,6 +34,7 @@
             <% }) %>
         </section>
 
+        <!-- LIGHTBOX -->
         <% images.forEach(image => { %>
             <div id="<%= image.id %>" class="lightbox">
                 <a href="/slike" class="lightbox-close">×</a>

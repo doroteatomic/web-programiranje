@@ -1,69 +1,285 @@
 <!DOCTYPE html>
-	<html lang="hr">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Responzivna web stranica o filmovima - tablice, CSS-only grafikon, galerija plakata, grid i flexbox.">
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="/styles/style.css">
-		<title>Movies</title> <!--promijeniti odgovarajući tekst na stranici
-		ovo je samo predložak-->
-	</head>
-	<body>
-		
-		<header>
-			<h1>Podaci o Filmovima</h1>
-			<nav aria-label="Glavna navigacija">
-				<ul class="nav-menu">
-					<li><a href="index.html">Početna</a></li>
-					<li><a href="grafikon.html">Grafikon</a></li>
-					<li><a href="/slike">Galerija</a></li>
-				</ul>
-			</nav>
-    	</header>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responzivna web stranica o filmovima">
 
-		<main>
-        <section class="content data-section">
-            <h1>Popis filmova</h1>
-            <div class="data-container">
-                <!-- Tablica filmova -->
-                <table aria-label="Popis filmova">
-                    <thead>
-                        <tr>
-                            <th>ID</th><th>Naslov</th><th>Godina</th><th>Žanr</th><th>Trajanje</th><th>Država</th><th>Ocjena</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>2</td><td>Bugs Bunny's Third Movie</td><td>1982</td><td>Animacija</td><td>76</td><td>SAD</td><td>7.7</td></tr>
-                        <tr><td>8</td><td>My Little Pony: A New Generation</td><td>2021</td><td>Animacija</td><td>98</td><td>SAD</td><td>6.5</td></tr>
-                        <tr><td>17</td><td>Ride a Wild Pony</td><td>1976</td><td>Romantični</td><td>91</td><td>SAD</td><td>5.7</td></tr>
-                        <tr><td>18</td><td>Diner</td><td>1982</td><td>Komedija</td><td>95</td><td>SAD</td><td>7.0</td></tr>
-                        <tr><td>20</td><td>A che servono questi quattrini?</td><td>1942</td><td>Komedija</td><td>85</td><td>Italija</td><td>5.9</td></tr>
-                    </tbody>
-                </table>
+    <title>Movies</title>
 
-                <!-- Responzivna fotografija u aside (picture + media query) -->
-                <aside class="movie-photo" aria-labelledby="photo-desc">
-					<picture>
-                        <source media="(min-width: 769px)" srcset="https://m.media-amazon.com/images/M/MV5BMGFmM2I5YjYtNTkwNS00NThiLTgzMTgtNWY1MmMzOTVjZWYxXkEyXkFqcGc@._V1_.jpg">
-                        <img src="https://m.media-amazon.com/images/M/MV5BMGFmM2I5YjYtNTkwNS00NThiLTgzMTgtNWY1MmMzOTVjZWYxXkEyXkFqcGc@._V1_.jpg" alt="Filmski plakat klasičnog filma">
-                    </picture>
-                    <h3 id="photo-desc">One Million Yen Girl</h2>
-                </aside>
-            </div>
-        </section>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/style.css">
 
-        <section class="content" aria-labelledby="sekcija-naslov">
-            <h2 id="sekcija-naslov">O filmovima</h2>
-            <p>Dodajte me na letterboxdu @erdtrees :3</p>
-        </section>
-    </main>
-		
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
 
-		<!--dodati odgovarajuće elemente na temelju danog zadatka: tablice, slike, tekst
-		Nepotrebno obrisati! -->
-		<footer>
-		<p>&copy; 2025. Web Programiranje. Sva prava pridrzana.</p>
-		</footer>
-	</body>
-	</html>
+<body>
+
+<header>
+    <h1>Podaci o Filmovima</h1>
+
+    <nav aria-label="Glavna navigacija">
+        <ul class="nav-menu">
+            <li><a href="index.html">Početna</a></li>
+            <li><a href="grafikon.html">Grafikon</a></li>
+            <li><a href="/slike">Galerija</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="cart-section" style="display:none;">
+    <h2>Košarica za posudbu</h2>
+
+    <ul id="cart-list"></ul>
+
+    <button id="confirm-cart">Potvrdi odabir</button>
+    <button id="close-cart">Zatvori</button>
+</section>
+
+<button id="show-cart">Pregled košarice</button>
+
+<p id="message"></p>
+
+
+<main>
+
+<section class="content data-section">
+
+    <h1>Popis filmova</h1>
+
+    <div class="data-container">
+
+        <div class="filters">
+            <input type="text" id="genreFilter" placeholder="Žanr, npr. Comedy">
+            <input type="number" id="yearFrom" placeholder="Godina od">
+            <input type="number" id="yearTo" placeholder="Godina do">
+            <input type="text" id="countryFilter" placeholder="Država, npr. United States">
+            <button id="filterBtn">Filtriraj</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+
+        <table aria-label="Popis filmova">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Naslov</th>
+                    <th>Godina</th>
+                    <th>Žanr</th>
+                    <th>Trajanje</th>
+                    <th>Država</th>
+                    <th>Ocjena</th>
+                    <th>Košarica</th>
+                </tr>
+            </thead>
+
+            <tbody id="movieTableBody">
+            </tbody>
+
+        </table>
+
+
+        <aside class="movie-photo" aria-labelledby="photo-desc">
+
+            <picture>
+                <source media="(min-width: 769px)"
+                srcset="https://m.media-amazon.com/images/M/MV5BMGFmM2I5YjYtNTkwNS00NThiLTgzMTgtNWY1MmMzOTVjZWYxXkEyXkFqcGc@._V1_.jpg">
+
+                <img
+                src="https://m.media-amazon.com/images/M/MV5BMGFmM2I5YjYtNTkwNS00NThiLTgzMTgtNWY1MmMzOTVjZWYxXkEyXkFqcGc@._V1_.jpg"
+                alt="Filmski plakat">
+            </picture>
+
+            <h3 id="photo-desc">One Million Yen Girl</h3>
+
+        </aside>
+
+    </div>
+
+</section>
+
+
+<section class="content">
+
+    <h2>O filmovima</h2>
+
+    <p>Dodajte me na letterboxdu @erdtrees :3</p>
+
+</section>
+
+</main>
+
+
+<footer>
+    <p>&copy; 2025. Web Programiranje. Sva prava pridržana.</p>
+</footer>
+
+
+
+<script>
+    const tbody = document.getElementById("movieTableBody");
+
+    let sviFilmovi = [];
+    const kosarica = [];
+
+    const cartList = document.getElementById("cart-list");
+    const cartSection = document.getElementById("cart-section");
+    const showCartBtn = document.getElementById("show-cart");
+    const confirmBtn = document.getElementById("confirm-cart");
+    const closeCartBtn = document.getElementById("close-cart");
+    const message = document.getElementById("message");
+
+    Papa.parse("/csv/netflix_titles.csv", {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+
+        complete: function(results) {
+            sviFilmovi = results.data;
+            prikaziFilmove(sviFilmovi.slice(0, 20));
+        }
+    });
+
+    function prikaziFilmove(filmovi) {
+        tbody.innerHTML = "";
+
+        filmovi.forEach(film => {
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>${film.show_id || ""}</td>
+                <td>${film.title || ""}</td>
+                <td>${film.release_year || ""}</td>
+                <td>${film.listed_in || ""}</td>
+                <td>${film.duration || ""}</td>
+                <td>${film.country || ""}</td>
+                <td>${film.rating || ""}</td>
+                <td><button class="add">Add</button></td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+        aktivirajKosaricu();
+    }
+
+    function aktivirajKosaricu() {
+        const addButtons = document.querySelectorAll(".add");
+
+        addButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const row = this.closest("tr");
+                const title = row.children[1].textContent;
+
+                if (!kosarica.includes(title)) {
+                    kosarica.push(title);
+                    this.textContent = "Added";
+                    this.disabled = true;
+                }
+
+                prikaziKosaricu();
+            });
+        });
+    }
+
+    function prikaziKosaricu() {
+        cartList.innerHTML = "";
+
+        if (kosarica.length === 0) {
+            cartList.innerHTML = "<li>Košarica je prazna.</li>";
+            return;
+        }
+
+        kosarica.forEach((film, index) => {
+            const li = document.createElement("li");
+
+            li.innerHTML = `
+                ${film}
+                <button onclick="ukloniFilm(${index})">Remove</button>
+            `;
+
+            cartList.appendChild(li);
+        });
+    }
+
+    function ukloniFilm(index) {
+        const removedFilm = kosarica[index];
+        kosarica.splice(index, 1);
+
+        const addButtons = document.querySelectorAll(".add");
+
+        addButtons.forEach(button => {
+            const row = button.closest("tr");
+            const title = row.children[1].textContent;
+
+            if (title === removedFilm) {
+                button.textContent = "Add";
+                button.disabled = false;
+            }
+        });
+
+        prikaziKosaricu();
+    }
+
+    showCartBtn.addEventListener("click", function () {
+        cartSection.style.display = "block";
+        showCartBtn.style.display = "none";
+        message.textContent = "";
+        prikaziKosaricu();
+    });
+
+    closeCartBtn.addEventListener("click", function () {
+        cartSection.style.display = "none";
+        showCartBtn.style.display = "block";
+        message.textContent = "";
+    });
+
+    confirmBtn.addEventListener("click", function () {
+        const count = kosarica.length;
+
+        if (count === 0) {
+            message.textContent = "Niste dodali nijedan film u košaricu.";
+        } else {
+            message.textContent =
+                `Uspješno ste dodali ${count} filma u svoju košaricu za vikend maraton!`;
+        }
+
+        cartSection.style.display = "none";
+        showCartBtn.style.display = "block";
+    });
+
+    document.getElementById("filterBtn").addEventListener("click", function () {
+        const genre = document.getElementById("genreFilter").value.toLowerCase();
+        const yearFrom = document.getElementById("yearFrom").value;
+        const yearTo = document.getElementById("yearTo").value;
+        const country = document.getElementById("countryFilter").value.toLowerCase();
+
+        const filtrirani = sviFilmovi.filter(film => {
+            const filmGenre = (film.listed_in || "").toLowerCase();
+            const filmYear = Number(film.release_year);
+            const filmCountry = (film.country || "").toLowerCase();
+
+            const genreOk = genre === "" || filmGenre.includes(genre);
+            const fromOk = yearFrom === "" || filmYear >= Number(yearFrom);
+            const toOk = yearTo === "" || filmYear <= Number(yearTo);
+            const countryOk = country === "" || filmCountry.includes(country);
+
+            return genreOk && fromOk && toOk && countryOk;
+        });
+
+        prikaziFilmove(filtrirani.slice(0, 50));
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", function () {
+        document.getElementById("genreFilter").value = "";
+        document.getElementById("yearFrom").value = "";
+        document.getElementById("yearTo").value = "";
+        document.getElementById("countryFilter").value = "";
+
+        prikaziFilmove(sviFilmovi.slice(0, 20));
+    });
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 session_start();
 include 'includes/db.php';
 
-$message = "";
+$message = $_GET['message'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -79,12 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <section class="login-container">
 
-        <?php if(!empty($message)): ?>
-
-            <div class="warning">
+        <?php if (!empty($message)): ?>
+            <div class="<?= str_contains($message, 'successful') ? '' : 'warning' ?>"
+                 style="<?= str_contains($message, 'successful') ? 'background:#d4edda;color:#155724;padding:10px;border-radius:12px;margin-bottom:15px;font-weight:500;' : '' ?>">
                 <?= htmlspecialchars($message) ?>
             </div>
-
         <?php endif; ?>
 
         <form method="POST" class="login-form">

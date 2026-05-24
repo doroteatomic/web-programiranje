@@ -21,12 +21,12 @@ CREATE TABLE movies (
 
 CREATE TABLE user_movies (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    movie_id INT,
+    user_id INT NOT NULL,
+    movie_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY(movie_id) REFERENCES movies(id) ON DELETE CASCADE
+    UNIQUE KEY unique_user_movie (user_id, movie_id),
+    FOREIGN KEY (user_id)  REFERENCES users(id)  ON DELETE CASCADE,
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
 );
 
 CREATE TABLE photos (
@@ -41,9 +41,7 @@ CREATE TABLE ratings (
     photo_id INT,
     rating INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    UNIQUE(user_id, photo_id),
-
-    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY(photo_id) REFERENCES photos(id) ON DELETE CASCADE
+    UNIQUE (user_id, photo_id),
+    FOREIGN KEY (user_id)  REFERENCES users(id)  ON DELETE CASCADE,
+    FOREIGN KEY (photo_id) REFERENCES photos(id) ON DELETE CASCADE
 );

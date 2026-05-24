@@ -146,6 +146,78 @@ tbody tr:hover {
     margin: 10px 0;
 }
 
+/* SUCCESS */
+.success-msg {
+    background: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+/* LOW RATING ROW */
+.low-rating-row {
+    background: #fff4f4 !important;
+}
+
+/* DANGER BUTTON */
+.btn-danger {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #df7f7f, #ff6767);
+    color: white;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(255, 80, 80, 0.25);
+}
+
+/* IN CART BUTTON (disabled) */
+.btn-in-cart {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 20px;
+    background: #e8f5e9;
+    color: #388e3c;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: default;
+    opacity: 0.85;
+}
+
+/* RESET LINK STYLED AS BUTTON */
+.btn-reset {
+    padding: 10px 18px;
+    border-radius: 25px;
+    background: #fff0f6;
+    color: #df7faf;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    display: inline-block;
+    border: 1px solid #ffd6e7;
+}
+.btn-reset:hover {
+    background: #ffd6e7;
+}
+
+/* SELECT IN FILTERS */
+.filters select {
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid #ffd6e7;
+    background: rgba(255,255,255,0.8);
+    font-family: inherit;
+    outline: none;
+    color: #333;
+}
+
 /* FOOTER */
 footer {
     margin-top: 40px;
@@ -179,3 +251,117 @@ footer {
         font-size: 14px;
     }
 }
+/* SORT RATING BAR */
+.sort-rating-bar {
+    text-align: center;
+    margin: 0 0 16px;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+.sort-rating-bar a {
+    padding: 7px 16px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin: 0 4px;
+    transition: 0.2s;
+    background: #fff0f6;
+    color: #df7faf;
+    border: 1px solid #ffd6e7;
+    display: inline-block;
+}
+.sort-rating-bar a.active {
+    background: linear-gradient(135deg, #df7faf, #ff67ad);
+    color: white;
+    border-color: transparent;
+}
+.sort-rating-bar a:hover:not(.active) { background: #ffd6e7; }
+
+/* IN CART BUTTON - hover to remove */
+.btn-in-cart {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #a8d5a2;
+    background: #e8f5e9;
+    color: #388e3c;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.25s;
+    min-width: 90px;
+}
+.btn-in-cart .text-hover { display: none; }
+.btn-in-cart:hover {
+    background: #fdecea;
+    color: #c62828;
+    border-color: #ef9a9a;
+}
+.btn-in-cart:hover .text-normal { display: none; }
+.btn-in-cart:hover .text-hover  { display: inline; }
+
+/* REMOVE BUTTON IN CART - matches in-cart hover style */
+.btn-remove {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #ef9a9a;
+    background: #fdecea;
+    color: #c62828;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.25s;
+    min-width: 90px;
+}
+.btn-remove:hover {
+    background: #c62828;
+    color: white;
+    border-color: #c62828;
+}
+
+/* TOAST NOTIFICATION */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: white;
+    border: 1.5px solid #a8d5a2;
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    z-index: 999;
+    color: #2e7d32;
+    font-weight: 500;
+    animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+.toast-btn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #df7faf, #ff67ad);
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+.toast-btn:hover { opacity: 0.85; }
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+.toast-close:hover { color: #555; }
